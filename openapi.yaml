@@ -1,0 +1,368 @@
+openapi: 3.0.3
+info:
+  title: HoneyHive AI API documentation
+  description: |-
+    HoneyHive API allows you to programatically evaluate, deploy, monitor and fine-tune both closed and open-source large language models for production use-cases.
+  contact:
+    email: support@honeyhive.ai
+  version: 0.0.0
+externalDocs:
+  description: HoneyHive Docs
+  url: https://docs.honeyhive.ai/api-reference/authentication
+servers:
+  - url: https://honeyhive.ai:5000/
+security:
+  - bearerAuth: []
+tags:
+  - name: Task
+    description: Everything about Tasks
+  - name: Prompt
+    description: Everything about Prompts
+
+paths:
+  /tasks:
+    get:
+      tags:
+        - Task
+      summary: Find all Tasks
+      description: Find all tasks in certain organisation
+      operationId: findAllTasks
+      requestBody:
+        description: Fetch a particular task by name
+        content:
+          application/json:
+            schema:
+              type: string
+              example: "offline eval"
+        required: false
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tasks'
+        '400':
+          description: Bad Request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBadRequest'
+    post:
+      tags:
+        - Task
+      summary: Create a new task
+      description: Create a new task
+      operationId: createTask
+      requestBody:
+        description: Task payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+        required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Bad Request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBadRequest'
+    put:
+      tags:
+        - Task
+      summary: Update an existing task
+      description: Update an existing task by code
+      operationId: updateTask
+      requestBody:
+        description: Update an existing task
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+        required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Bad Request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBadRequest'
+  /prompts:
+    get:
+      tags:
+        - Prompt
+      summary: Get Prompts
+      description: This endpoint gets the prompts associated with a particular task.
+      operationId: findPrompts
+      requestBody:
+        description: Find prompts by task or name
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/findPromptsInput'
+        required: false
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Prompts'
+        '400':
+          description: Bad Request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBadRequest'
+    post:
+      tags:
+        - Prompt
+      summary: Create Prompt
+      description: This endpoint creates a prompt for a task.
+      operationId: createPrompt
+      requestBody:
+        description: Prompt to add to task
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Prompt'
+        required: true
+        
+  /prompts/{id}:
+    parameters:
+      - name: id
+        in: path
+        description: The id of the prompt
+        required: true
+        schema:
+          type: string
+          example: "123"
+    put:
+      tags:
+        - Prompt
+      summary: Update Prompts
+      description: This endpoint changes a prompt for a task.
+      operationId: changePrompt
+      requestBody:
+        description: Prompt to add to task
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Prompt'
+        required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Prompt'
+        '400':
+          description: Bad Request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBadRequest'
+
+  /prompts/{name}:
+    parameters:
+      - name: name
+        in: path
+        description: The name of the prompt
+        required: true
+        schema:
+          type: string
+          example: "offline prompt"
+    delete:
+      tags:
+        - Prompt
+      summary: Delete Prompts
+      description: This endpoint deletes a particular prompt from the task.
+      operationId: deletePrompt
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+
+
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "123"
+        name:
+          type: string
+          required: true
+          example: ""
+        description:
+          type: string
+          required: false
+          example: ""
+        type:
+          type: string
+          required: false
+          enum:
+            - Text Generation
+            - Code Generation
+            - Classification
+            - Summarization
+            - Other
+        fine_tuned_models:
+          type: array
+          items:
+            type: string
+        prompts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Prompt'
+        datasets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset'
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/Metric'
+        created_at:
+          type: string
+          example: "2023-02-08T17:05:45.990Z"
+        updated_at:
+          type: string
+          example: "2023-02-08T17:05:45.990Z"
+    Tasks:
+      type: object
+      properties:
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Task'
+    Prompt:
+      type: object
+      properties:
+        name:
+          type: string
+        task:
+          type: string
+        version:
+          type: string
+        text:
+          type: string
+        input_variables:
+          type: array
+          items:
+            type: string
+        model:
+          type: string
+        provider:
+          type: string
+        hyperparameters:
+          $ref: '#/components/schemas/HyperParameters'
+        is_deployed:
+          type: boolean
+        few_shot_examples:
+          type: array
+          items:
+            type: string
+        created_at:
+          type: string
+          example: "2023-02-08T17:05:45.990Z"
+        updated_at:
+          type: string
+          example: "2023-02-08T17:05:45.990Z"
+
+    Prompts:
+      type: object
+      properties:
+        prompts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Prompt'
+
+    findPromptsInput:
+      type: object
+      properties:
+        task:
+          type: string
+        name:
+          type: string
+
+    HyperParameters:
+      type: object
+      properties:
+        temperature: 
+          type: number
+          example: 0.3
+        max_tokens:
+          type: integer
+          example: 800
+        top_p: 
+          type: integer
+          example: 1
+        frequency_penalty:
+          type: integer
+          example: 0
+        prescence_penalty:
+          type: integer
+          example: 0
+
+    Metric:
+      type: object
+      properties:
+        task_name:
+          type: string
+          example: "my task"
+        name:
+          type: string
+          example: "new metric"
+        code_snippet:
+          type: string
+          example: "code snippet"
+    
+    Dataset:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "my task"
+        purpose:
+          type: string
+          example: "new metric"
+        file:
+          type: string
+          example: "????"
+        task:
+          type: string
+          example: "code snippet"
+        description:
+          type: string
+          example: "code snippet"
+
+    ApiResponseBadRequest:
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: Bad request
+
+  
