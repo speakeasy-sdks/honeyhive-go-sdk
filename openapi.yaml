@@ -22,6 +22,12 @@ tags:
     description: Everything about Generations
   - name: Feedback
     description: Everything about Feedback
+  - name: Metric
+    description: Everything about Metrics
+  - name: Dataset
+    description: Everything about Datasets
+  - name: Fine Tuned Model
+    description: Everything about Fine Tuned Models
 
 paths:
   /tasks:
@@ -142,8 +148,21 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Prompt'
+              $ref: '#/components/schemas/CreatePromptInput'
         required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePromptResponse'
+        '400':
+          description: Bad Request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBadRequest'
         
   /prompts/{id}:
     parameters:
@@ -180,22 +199,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponseBadRequest'
-
-  /prompts/{name}:
-    parameters:
-      - name: name
-        in: path
-        description: The name of the prompt
-        required: true
-        schema:
-          type: string
-          example: "offline prompt"
     delete:
       tags:
         - Prompt
       summary: Delete Prompts
       description: This endpoint deletes a particular prompt from the task.
       operationId: deletePrompt
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromptDeleteResponse'
+        '400':
+          description: Bad Request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBadRequest'
 
   /generate:
     post:
@@ -334,6 +356,171 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponseBadRequest'
+
+  /fine_tuned_models:
+    get:
+      tags:
+        - Fine Tuned Model
+      summary: This endpoint gets the fine-tuned models being managed by the user.
+      description: This endpoint gets the fine-tuned models associated with a particular model or task.
+      operationId: findFineTunedModels
+      requestBody:
+        description: Find fine-tuned models by task or name
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FineTunedModelsInput'
+        required: false
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FineTunedModelsResponse'
+        '400':
+          description: Bad Request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBadRequest'
+
+  /metrics:
+    get:
+      tags:
+        - Metric
+      summary: Get Metrics
+      description: This endpoint gets the metrics associated with a particular task.
+      operationId: findMetrics
+      requestBody:
+        description: Find metrics by task name.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FindMetricsInput'
+        required: false
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindMetricsResponse'
+        '400':
+          description: Bad Request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBadRequest'
+    post:
+      tags:
+        - Metric
+      summary: Create Metric
+      description: This endpoint adds a metric to a task.
+      operationId: createMetric
+      requestBody:
+        description: Metric to add to task
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Metric'
+        required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Metric'
+        '400':
+          description: Bad Request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBadRequest'
+
+  /datasets/:
+    get:
+      tags:
+        - Dataset
+      summary: Get Datasets
+      description: This endpoint gets the datasets associated with a particular task.
+      operationId: findDatasets
+      requestBody:
+        description: Find datasets by task name.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FindDatasetsInput'
+        required: false
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindDatasetsResponse'
+        '400':
+          description: Bad Request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBadRequest'
+    post:
+      tags:
+        - Dataset
+      summary: Create Dataset
+      description: This endpoint creates a new dataset
+      operationId: createDataset
+      requestBody:
+        description: New Dataset to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dataset'
+        required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDatasetResponse'
+        '400':
+          description: Bad Request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBadRequest'
+    
+  /datasets/{name}:
+    parameters:
+      - name: name
+        in: path
+        description: The name of the dataset
+        required: true
+        schema:
+          type: string
+    delete:
+      tags:
+        - Dataset
+      summary: Delete Datasets
+      description: This endpoint deletes the dataset with the specified name.
+      operationId: deleteDataset
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteDatasetResponse'
+        '400':
+          description: Bad Request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBadRequest'
+
 components:
   securitySchemes:
     bearerAuth:
@@ -434,6 +621,67 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Prompt'
+    
+    CreatePromptInput:
+      type: object
+      properties:
+        task:
+          type: string
+        version:
+          type: string
+        required: false
+        text:
+          type: string
+        input_variables:
+          type: array
+          items:
+            type: string
+          required: false
+        model:
+          type: integer
+        provider:
+          type: string
+        hyperparameters:
+          type: object
+          $ref: '#/components/schemas/HyperParameters'
+        few_shot_examples:
+          type: array
+          items:
+            type: string
+          required: false
+
+    CreatePromptResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        task:
+          type: string
+        version:
+          type: string
+        text:
+          type: string
+        input_variables:
+          type: array
+          items:
+            type: string
+        model:
+          type: string
+        provider:
+          type: string
+        hyperparameters:
+          $ref: '#/components/schemas/HyperParameters'
+        few_shot_examples:
+          type: array
+          items:
+            type: string
+        created_at:
+          type: string
+          example: "2023-02-08T17:05:45.990Z"
+        updated_at:
+          type: string
+          example: "2023-02-08T17:05:45.990Z"
+
     
     TaskGenerationInput:
       type: object
@@ -650,6 +898,41 @@ components:
           type: string
           example: "code snippet"
     
+    FindMetricsInput:
+      type: object
+      properties:
+        task_name:
+          type: string
+          example: "my task"
+          required: false
+
+    FindMetricsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/MetricsResponse'
+
+    MetricsResponse:
+      type: object
+      properties:
+        task_name:
+          type: string
+        metric_name:
+          type: string
+          description: "name of the metric"
+        metric_value:
+          type: string
+          description: "value of the metric"
+        created_at:
+          type: string
+          example: "2023-02-08T17:05:45.990Z"
+        updated_at:
+          type: string
+          example: "2023-02-08T17:05:45.990Z"
+        id:
+          type: string
+          description: "id of the metric"
+
+    
     Dataset:
       type: object
       properties:
@@ -680,4 +963,136 @@ components:
           type: string
           example: Bad request
 
-  
+
+    FineTunedModelsInput:
+      type: object
+      properties:
+        model_id:
+          type: string
+          required: false 
+        task:
+          type: string
+          required: false
+
+    FineTunedModelsResponse:
+      type: object
+      properties:
+        model_id:
+          type: string
+        object:
+          type: string
+        model:
+          type: string
+        hyperparams:
+          type: string
+        org_id:
+          type: string
+        result_files:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+        validation_files:
+          type: array
+          items:
+            type: string
+        training_files:
+          type: array
+          items:
+            type: string
+        created_at: 
+          type: string
+          example: "2023-02-08T17:05:45.990Z"
+        updated_at:
+          type: string
+          example: "2023-02-08T17:05:45.990Z"
+
+    FindDatasetsInput:
+      type: object
+      properties:
+        dataset_id:
+          type: string
+          required: false
+          description: "id of the dataset"
+        task:
+          type: string
+          required: false
+          description: "task of the dataset"
+        prompt:
+          type: string
+          required: false
+          description: "prompt of the dataset"
+        purpose:
+          type: string
+          required: false
+
+    FindDatasetsResponse:
+      type: object
+      properties:
+        object:
+          type: string
+          description: "data object associated with the dataset"
+        bytes:
+          type: string
+        file_name:
+          type: string
+          description: "prompt of the dataset"
+        purpose:
+          type: string
+          description: This is the purpose of the dataset.
+          enum:
+          - Training
+          - Validation
+          - Test
+        description:
+          type: string
+          description: "description of the dataset"
+        created_at:
+          type: string
+          example: "2023-02-08T17:05:45.990Z"
+        id:
+          type: string
+          description: "id of the dataset"
+
+    CreateDatasetResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: "This is the name of the dataset."
+        task:
+          type: string
+          description: "This is the task associated with the dataset."
+        file_name:
+          type: string
+          description: "This is the file containing the dataset."
+        purpose:
+          type: string
+          description: This is the purpose of the dataset.
+        description:
+          type: string
+          description: "description of the dataset"
+        created_at:
+          type: string
+          example: "2023-02-08T17:05:45.990Z"
+        updated_at:
+          type: string
+          example: "2023-02-08T17:05:45.990Z"
+        id:
+          type: string
+          description: "id of the dataset"
+
+    DeleteDatasetResponse:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+          description: "true if dataset was deleted"
+    
+    PromptDeleteResponse:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+          description: "true if prompt was deleted"
