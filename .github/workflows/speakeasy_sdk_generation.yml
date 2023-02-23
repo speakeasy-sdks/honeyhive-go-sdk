@@ -7,7 +7,7 @@ on:
 
 jobs:
   generate:
-    uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-generation.yaml@v7
+    uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-generation.yaml@v10
     with:
       speakeasy_version: latest
       openapi_doc_location: ./openapi.yaml
