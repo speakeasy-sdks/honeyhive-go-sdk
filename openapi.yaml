@@ -18,6 +18,10 @@ tags:
     description: Everything about Tasks
   - name: Prompt
     description: Everything about Prompts
+  - name: Generation
+    description: Everything about Generations
+  - name: Feedback
+    description: Everything about Feedback
 
 paths:
   /tasks:
@@ -193,12 +197,148 @@ paths:
       description: This endpoint deletes a particular prompt from the task.
       operationId: deletePrompt
 
+  /generate:
+    post:
+      tags:
+        - Generation
+      summary: Create Generation for Model and Prompt
+      description: This endpoint generates text using a given model and prompt.
+      operationId: modelPromptCreateGeneration
+      requestBody:
+        description: Prompt to add to task
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelPromptGenerationInput'
+        required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelPromptGenerationOutput'
+        '400':
+          description: Bad Request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBadRequest'
+
+  /generations:
+    get:
+      tags:
+        - Generation
+      summary: Get Generations
+      description: This endpoint gets the generations for a given task, prompt and model.
+      operationId: getGeneration
+      requestBody:
+        description: Get Generations
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerationInput'
+        required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerationOutputs'
+        '400':
+          description: Bad Request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBadRequest'
+
+    post:
+      tags:
+        - Generation
+      summary: Create Generation for Task
+      description: This endpoint produces a new generation for a given task.
+      operationId: taskCreateGeneration  
+      requestBody:
+        description: Create tasks
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskGenerationInput'
+        required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskGenerationOutput'
+        '400':
+          description: Bad Request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBadRequest'
+
+  /generations/bulk:
+    post:
+      tags:
+        - Generation
+      summary: Create Generation for Task
+      description: This endpoint ingests generations in bulk.
+      operationId: ingestGenerations
+      requestBody:
+        description: Ingest generations
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Generations'
+        required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Generations'
+        '400':
+          description: Bad Request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBadRequest'
+  /feedback:
+    post:
+      tags:
+        - Feedback
+      summary: Create Feedback
+      description: This endpoint creates feedback for a generation.
+      operationId: createFeedback
+      requestBody:
+        description: Create feedback
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Feedback'
+        required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feedback'
+        '400':
+          description: Bad Request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBadRequest'
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
-
 
   schemas:
     Task:
@@ -294,6 +434,181 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Prompt'
+    
+    TaskGenerationInput:
+      type: object
+      properties:
+        task:
+          type: string
+        prompts:
+            $ref: '#/components/schemas/Prompts'
+        source:
+          type: string
+        model_id:
+          type: string
+        best_of:
+          type: integer
+        metric:
+          type: string
+        sampling:
+          type: string
+        user_properties:
+          type: object
+          properties:
+            user_id:
+              type: string
+        provider_api_keys:
+          type: object
+          properties:
+            api_keys:
+              type: array
+              items:
+                type: string
+
+    TaskGenerationOutput:
+      type: object
+      properties:
+        prompt:
+          type: string
+        generation:
+          type: string
+        generation_id:
+          type: string
+          example: "123"
+        total_tokens:
+          type: integer
+        cost:
+          type: float
+        latency:
+          type: float
+
+    ModelPromptGenerationInput:
+      type: object
+      properties:
+        model:
+          type: string
+        prompt:
+          type: string
+        hyperparameters:
+          $ref: '#/components/schemas/HyperParameters'
+        task:
+          type: string
+        version:
+          type: string
+        source:
+          type: string
+
+    ModelPromptGenerationOutput:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          example: "2023-02-08T17:05:45.990Z"
+        version:
+          type: string
+        prompt:
+          type: string
+        model:
+          type: string
+        hyperparameters:
+          $ref: '#/components/schemas/HyperParameters'
+        task:
+          type: string
+        generation:
+          type: string
+        total_tokens:
+          type: integer
+        completion_tokens:
+          type: integer
+        cost:
+          type: float
+        source:
+          type: string
+
+    Generation:
+      type: object
+      properties:
+        task_id:
+          type: string
+        prompt:
+          type: string
+        model:
+          type: string
+        completion:
+          type: string
+          example: "2023-02-08T17:05:45.990Z"
+        created_at:
+          type: string
+          example: "2023-02-08T17:05:45.990Z"
+        updated_at:
+          type: string
+          example: "2023-02-08T17:05:45.990Z"
+        id:
+          type: string
+          example: "5f3a2d6f8f9d9e0017d9f8d7"
+
+    Generations:
+      type: object
+      properties:
+        generations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Generation'
+
+
+    GenerationInput:
+      type: object
+      properties:
+        task:
+          type: string
+        version:
+          type: string
+        model:
+          type: string
+        limit:
+          type: integer
+
+    GenerationOutput:
+      type: object
+      properties:
+        task:
+          type: string
+        prompt:
+          type: string
+        model:
+          type: string
+        generated_at:
+          type: string
+          example: "2023-02-08T17:05:45.990Z"
+        id:
+          type: string
+          example: "123"
+
+    GenerationOutputs:
+      type: object
+      properties:
+        prompts:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenerationOutput'
+
+    Feedback:
+      type: object
+      properties:
+        task:
+          type: string
+        generation_id:
+          type: string
+        feedback_json:
+          type: object
+          properties:
+            score:
+              type: integer
+            comment:
+              type: string
+        timestamp:
+          type: string
+          example: "2023-02-08T17:05:45.990Z"
 
     findPromptsInput:
       type: object
