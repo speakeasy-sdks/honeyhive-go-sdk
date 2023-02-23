@@ -726,9 +726,9 @@ components:
         total_tokens:
           type: integer
         cost:
-          type: float
+          type: number
         latency:
-          type: float
+          type: number
 
     ModelPromptGenerationInput:
       type: object
@@ -769,7 +769,7 @@ components:
         completion_tokens:
           type: integer
         cost:
-          type: float
+          type: number
         source:
           type: string
 
