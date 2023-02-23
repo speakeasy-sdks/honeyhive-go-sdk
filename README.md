@@ -4,7 +4,7 @@
    <img src="https://user-images.githubusercontent.com/6267663/220803812-cd7e27bd-06cb-49b0-87c1-d85fe21a3557.png" />
    <p>HoneyHive is a model observability and evaluation platform that helps you continuously improve your models in production. We help you evaluate, deploy, monitor and fine-tune both closed and open-source large language models for production use-cases, allowing you to optimize model performance & align your models with your users’ preferences.</p>
    <a href="https://github.com/speakeasy-sdks/honeyhive-go-sdk/actions"><img src="https://img.shields.io/github/actions/workflow/status/speakeasy-sdks/honeyhive-go-sdk/speakeasy_sdk_generation.yml?style=for-the-badge" /></a>
-   <a href="https://docs.honeyhive.ai/introduction"><img src="https://img.shields.io/static/v1?label=Docs&message=API Ref&color=2ca47c&style=for-the-badge" /></a>
+   <a href="https://docs.honeyhive.ai/introduction"><img src="https://img.shields.io/static/v1?label=Docs&message=API Ref&color=fc9434&style=for-the-badge" /></a>
 </div> 
 
 <!-- Start SDK Installation -->
