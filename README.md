@@ -25,6 +25,7 @@ After signing up on the app, you can find your API key in the [Settings page](ht
 package main
 
 import (
+    "context"
     "log"
     "github.com/speakeasy-sdks/honeyhive-go-sdk"
     "github.com/speakeasy-sdks/honeyhive-go-sdk/pkg/models/shared"
@@ -38,7 +39,7 @@ func main() {
                 BearerAuth: shared.SchemeBearerAuth{
                     Authorization: "Bearer YOUR_BEARER_TOKEN_HERE",
                 },
-            }
+            },
         ),
     }
 
@@ -53,7 +54,8 @@ func main() {
             Task: "id",
         },
     }
-    
+
+    ctx := context.Background()
     res, err := s.Dataset.CreateDataset(ctx, req)
     if err != nil {
         log.Fatal(err)
@@ -62,6 +64,7 @@ func main() {
     if res.CreateDatasetResponse != nil {
         // handle response
     }
+}
 ```
 <!-- End SDK Example Usage -->
 
