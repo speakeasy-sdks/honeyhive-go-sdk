@@ -11,17 +11,13 @@ import (
 )
 
 func main() {
-    opts := []honeyhive.SDKOption{
-        honeyhive.WithSecurity(
-            shared.Security{
-                BearerAuth: shared.SchemeBearerAuth{
-                    Authorization: "Bearer YOUR_BEARER_TOKEN_HERE",
-                },
+    s := honeyhive.New(honeyhive.WithSecurity(
+        shared.Security{
+            BearerAuth: shared.SchemeBearerAuth{
+                Authorization: "Bearer YOUR_BEARER_TOKEN_HERE",
             },
-        ),
-    }
-
-    s := honeyhive.New(opts...)
+        },
+    ))
     
     req := operations.CreateDatasetRequest{
         Request: shared.Dataset{
