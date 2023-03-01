@@ -18,6 +18,7 @@ pkg/utils/requestbody.go
 pkg/utils/retries.go
 pkg/utils/security.go
 pkg/utils/utils.go
+strings.go
 pkg/models/operations/createdataset.go
 pkg/models/operations/deletedataset.go
 pkg/models/operations/finddatasets.go

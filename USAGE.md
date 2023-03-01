@@ -3,6 +3,7 @@
 package main
 
 import (
+    "context"
     "log"
     "github.com/speakeasy-sdks/honeyhive-go-sdk"
     "github.com/speakeasy-sdks/honeyhive-go-sdk/pkg/models/shared"
@@ -10,17 +11,13 @@ import (
 )
 
 func main() {
-    opts := []honeyhive.SDKOption{
-        honeyhive.WithSecurity(
-            shared.Security{
-                BearerAuth: shared.SchemeBearerAuth{
-                    Authorization: "Bearer YOUR_BEARER_TOKEN_HERE",
-                },
-            }
-        ),
-    }
-
-    s := honeyhive.New(opts...)
+    s := honeyhive.New(honeyhive.WithSecurity(
+        shared.Security{
+            BearerAuth: shared.SchemeBearerAuth{
+                Authorization: "Bearer YOUR_BEARER_TOKEN_HERE",
+            },
+        },
+    ))
     
     req := operations.CreateDatasetRequest{
         Request: shared.Dataset{
@@ -31,7 +28,8 @@ func main() {
             Task: "id",
         },
     }
-    
+
+    ctx := context.Background()
     res, err := s.Dataset.CreateDataset(ctx, req)
     if err != nil {
         log.Fatal(err)
@@ -40,5 +38,6 @@ func main() {
     if res.CreateDatasetResponse != nil {
         // handle response
     }
+}
 ```
 <!-- End SDK Example Usage -->
