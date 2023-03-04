@@ -2,6 +2,7 @@ package operations
 
 import (
 	"github.com/speakeasy-sdks/honeyhive-go-sdk/pkg/models/shared"
+	"net/http"
 )
 
 type DeleteDatasetPathParams struct {
@@ -17,4 +18,5 @@ type DeleteDatasetResponse struct {
 	ContentType           string
 	DeleteDatasetResponse *shared.DeleteDatasetResponse
 	StatusCode            int
+	RawResponse           *http.Response
 }

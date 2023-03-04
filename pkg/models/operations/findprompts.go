@@ -2,6 +2,7 @@ package operations
 
 import (
 	"github.com/speakeasy-sdks/honeyhive-go-sdk/pkg/models/shared"
+	"net/http"
 )
 
 type FindPromptsRequest struct {
@@ -13,4 +14,5 @@ type FindPromptsResponse struct {
 	ContentType           string
 	Prompts               *shared.Prompts
 	StatusCode            int
+	RawResponse           *http.Response
 }

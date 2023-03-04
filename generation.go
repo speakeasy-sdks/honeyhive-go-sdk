@@ -67,6 +67,7 @@ func (s *generation) GetGeneration(ctx context.Context, request operations.GetGe
 	res := &operations.GetGenerationResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
+		RawResponse: httpRes,
 	}
 	switch {
 	case httpRes.StatusCode == 200:
@@ -131,6 +132,7 @@ func (s *generation) IngestGenerations(ctx context.Context, request operations.I
 	res := &operations.IngestGenerationsResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
+		RawResponse: httpRes,
 	}
 	switch {
 	case httpRes.StatusCode == 200:
@@ -195,6 +197,7 @@ func (s *generation) ModelPromptCreateGeneration(ctx context.Context, request op
 	res := &operations.ModelPromptCreateGenerationResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
+		RawResponse: httpRes,
 	}
 	switch {
 	case httpRes.StatusCode == 200:
@@ -259,6 +262,7 @@ func (s *generation) TaskCreateGeneration(ctx context.Context, request operation
 	res := &operations.TaskCreateGenerationResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
+		RawResponse: httpRes,
 	}
 	switch {
 	case httpRes.StatusCode == 200:

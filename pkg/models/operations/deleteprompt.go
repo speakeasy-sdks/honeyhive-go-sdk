@@ -2,6 +2,7 @@ package operations
 
 import (
 	"github.com/speakeasy-sdks/honeyhive-go-sdk/pkg/models/shared"
+	"net/http"
 )
 
 type DeletePromptPathParams struct {
@@ -17,4 +18,5 @@ type DeletePromptResponse struct {
 	ContentType           string
 	PromptDeleteResponse  *shared.PromptDeleteResponse
 	StatusCode            int
+	RawResponse           *http.Response
 }

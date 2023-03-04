@@ -2,6 +2,7 @@ package operations
 
 import (
 	"github.com/speakeasy-sdks/honeyhive-go-sdk/pkg/models/shared"
+	"net/http"
 )
 
 type FindMetricsRequest struct {
@@ -13,4 +14,5 @@ type FindMetricsResponse struct {
 	ContentType           string
 	FindMetricsResponse   []shared.MetricsResponse
 	StatusCode            int
+	RawResponse           *http.Response
 }

@@ -15,7 +15,11 @@ type HTTPClient interface {
 	Do(req *http.Request) (*http.Response, error)
 }
 
-// SDK Documentation: https://docs.honeyhive.ai/api-reference/authentication - HoneyHive Docs
+// String provides a helper function to return a pointer to a string
+func String(s string) *string { return &s }
+
+// SDK Documentation: HoneyHive API allows you to programatically evaluate, deploy, monitor and fine-tune both closed and open-source large language models for production use-cases.
+// https://docs.honeyhive.ai/api-reference/authentication - HoneyHive Docs
 type Honeyhive struct {
 	Dataset        *dataset
 	Feedback       *feedback
@@ -37,7 +41,13 @@ type Honeyhive struct {
 
 type SDKOption func(*Honeyhive)
 
-func WithServerURL(serverURL string, params map[string]string) SDKOption {
+func WithServerURL(serverURL string) SDKOption {
+	return func(sdk *Honeyhive) {
+		sdk._serverURL = serverURL
+	}
+}
+
+func WithTemplatedServerURL(serverURL string, params map[string]string) SDKOption {
 	return func(sdk *Honeyhive) {
 		if params != nil {
 			serverURL = utils.ReplaceParameters(serverURL, params)
@@ -62,8 +72,8 @@ func WithSecurity(security shared.Security) SDKOption {
 func New(opts ...SDKOption) *Honeyhive {
 	sdk := &Honeyhive{
 		_language:   "go",
-		_sdkVersion: "0.4.0",
-		_genVersion: "1.7.1",
+		_sdkVersion: "0.5.0",
+		_genVersion: "1.8.2",
 	}
 	for _, opt := range opts {
 		opt(sdk)

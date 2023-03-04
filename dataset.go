@@ -67,6 +67,7 @@ func (s *dataset) CreateDataset(ctx context.Context, request operations.CreateDa
 	res := &operations.CreateDatasetResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
+		RawResponse: httpRes,
 	}
 	switch {
 	case httpRes.StatusCode == 200:
@@ -121,6 +122,7 @@ func (s *dataset) DeleteDataset(ctx context.Context, request operations.DeleteDa
 	res := &operations.DeleteDatasetResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
+		RawResponse: httpRes,
 	}
 	switch {
 	case httpRes.StatusCode == 200:
@@ -182,6 +184,7 @@ func (s *dataset) FindDatasets(ctx context.Context, request operations.FindDatas
 	res := &operations.FindDatasetsResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
+		RawResponse: httpRes,
 	}
 	switch {
 	case httpRes.StatusCode == 200:

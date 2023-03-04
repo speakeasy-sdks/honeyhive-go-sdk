@@ -67,6 +67,7 @@ func (s *task) CreateTask(ctx context.Context, request operations.CreateTaskRequ
 	res := &operations.CreateTaskResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
+		RawResponse: httpRes,
 	}
 	switch {
 	case httpRes.StatusCode == 200:
@@ -128,6 +129,7 @@ func (s *task) FindAllTasks(ctx context.Context, request operations.FindAllTasks
 	res := &operations.FindAllTasksResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
+		RawResponse: httpRes,
 	}
 	switch {
 	case httpRes.StatusCode == 200:
@@ -192,6 +194,7 @@ func (s *task) UpdateTask(ctx context.Context, request operations.UpdateTaskRequ
 	res := &operations.UpdateTaskResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
+		RawResponse: httpRes,
 	}
 	switch {
 	case httpRes.StatusCode == 200:

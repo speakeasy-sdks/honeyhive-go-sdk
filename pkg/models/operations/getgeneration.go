@@ -2,6 +2,7 @@ package operations
 
 import (
 	"github.com/speakeasy-sdks/honeyhive-go-sdk/pkg/models/shared"
+	"net/http"
 )
 
 type GetGenerationRequest struct {
@@ -13,4 +14,5 @@ type GetGenerationResponse struct {
 	ContentType           string
 	GenerationOutputs     *shared.GenerationOutputs
 	StatusCode            int
+	RawResponse           *http.Response
 }

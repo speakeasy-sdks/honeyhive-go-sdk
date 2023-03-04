@@ -2,6 +2,7 @@ package operations
 
 import (
 	"github.com/speakeasy-sdks/honeyhive-go-sdk/pkg/models/shared"
+	"net/http"
 )
 
 type CreateFeedbackRequest struct {
@@ -13,4 +14,5 @@ type CreateFeedbackResponse struct {
 	ContentType           string
 	Feedback              *shared.Feedback
 	StatusCode            int
+	RawResponse           *http.Response
 }

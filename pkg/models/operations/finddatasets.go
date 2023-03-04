@@ -2,6 +2,7 @@ package operations
 
 import (
 	"github.com/speakeasy-sdks/honeyhive-go-sdk/pkg/models/shared"
+	"net/http"
 )
 
 type FindDatasetsRequest struct {
@@ -13,4 +14,5 @@ type FindDatasetsResponse struct {
 	ContentType           string
 	FindDatasetsResponse  *shared.FindDatasetsResponse
 	StatusCode            int
+	RawResponse           *http.Response
 }

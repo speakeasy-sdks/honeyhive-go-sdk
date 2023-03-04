@@ -67,6 +67,7 @@ func (s *metric) CreateMetric(ctx context.Context, request operations.CreateMetr
 	res := &operations.CreateMetricResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
+		RawResponse: httpRes,
 	}
 	switch {
 	case httpRes.StatusCode == 200:
@@ -128,6 +129,7 @@ func (s *metric) FindMetrics(ctx context.Context, request operations.FindMetrics
 	res := &operations.FindMetricsResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
+		RawResponse: httpRes,
 	}
 	switch {
 	case httpRes.StatusCode == 200:

@@ -67,6 +67,7 @@ func (s *prompt) ChangePrompt(ctx context.Context, request operations.ChangeProm
 	res := &operations.ChangePromptResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
+		RawResponse: httpRes,
 	}
 	switch {
 	case httpRes.StatusCode == 200:
@@ -131,6 +132,7 @@ func (s *prompt) CreatePrompt(ctx context.Context, request operations.CreateProm
 	res := &operations.CreatePromptResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
+		RawResponse: httpRes,
 	}
 	switch {
 	case httpRes.StatusCode == 200:
@@ -185,6 +187,7 @@ func (s *prompt) DeletePrompt(ctx context.Context, request operations.DeleteProm
 	res := &operations.DeletePromptResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
+		RawResponse: httpRes,
 	}
 	switch {
 	case httpRes.StatusCode == 200:
@@ -246,6 +249,7 @@ func (s *prompt) FindPrompts(ctx context.Context, request operations.FindPrompts
 	res := &operations.FindPromptsResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
+		RawResponse: httpRes,
 	}
 	switch {
 	case httpRes.StatusCode == 200:

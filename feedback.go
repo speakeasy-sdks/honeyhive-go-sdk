@@ -67,6 +67,7 @@ func (s *feedback) CreateFeedback(ctx context.Context, request operations.Create
 	res := &operations.CreateFeedbackResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
+		RawResponse: httpRes,
 	}
 	switch {
 	case httpRes.StatusCode == 200:

@@ -64,6 +64,7 @@ func (s *fineTunedModel) FindFineTunedModels(ctx context.Context, request operat
 	res := &operations.FindFineTunedModelsResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
+		RawResponse: httpRes,
 	}
 	switch {
 	case httpRes.StatusCode == 200:
