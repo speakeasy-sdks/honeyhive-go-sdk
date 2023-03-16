@@ -36,7 +36,7 @@ func (s *feedback) CreateFeedback(ctx context.Context, request operations.Create
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/feedback"
 
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, "Request", "json")
 	if err != nil {
 		return nil, fmt.Errorf("error serializing request body: %w", err)
 	}

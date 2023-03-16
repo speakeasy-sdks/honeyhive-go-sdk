@@ -36,7 +36,7 @@ func (s *fineTunedModel) FindFineTunedModels(ctx context.Context, request operat
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/fine_tuned_models"
 
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, "Request", "json")
 	if err != nil {
 		return nil, fmt.Errorf("error serializing request body: %w", err)
 	}

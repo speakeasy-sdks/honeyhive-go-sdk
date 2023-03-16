@@ -11,14 +11,14 @@ import (
 )
 
 func main() {
-    s := honeyhive.New(honeyhive.WithSecurity(
-        shared.Security{
+    s := honeyhive.New(
+        WithSecurity(        shared.Security{
             BearerAuth: shared.SchemeBearerAuth{
                 Authorization: "Bearer YOUR_BEARER_TOKEN_HERE",
             },
-        },
-    ))
-    
+        }),
+    )
+
     req := operations.CreateDatasetRequest{
         Request: shared.Dataset{
             Description: "unde",

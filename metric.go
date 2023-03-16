@@ -36,7 +36,7 @@ func (s *metric) CreateMetric(ctx context.Context, request operations.CreateMetr
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/metrics"
 
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, "Request", "json")
 	if err != nil {
 		return nil, fmt.Errorf("error serializing request body: %w", err)
 	}
@@ -101,7 +101,7 @@ func (s *metric) FindMetrics(ctx context.Context, request operations.FindMetrics
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/metrics"
 
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, "Request", "json")
 	if err != nil {
 		return nil, fmt.Errorf("error serializing request body: %w", err)
 	}

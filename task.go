@@ -36,7 +36,7 @@ func (s *task) CreateTask(ctx context.Context, request operations.CreateTaskRequ
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/tasks"
 
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, "Request", "json")
 	if err != nil {
 		return nil, fmt.Errorf("error serializing request body: %w", err)
 	}
@@ -101,7 +101,7 @@ func (s *task) FindAllTasks(ctx context.Context, request operations.FindAllTasks
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/tasks"
 
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, "Request", "string")
 	if err != nil {
 		return nil, fmt.Errorf("error serializing request body: %w", err)
 	}
@@ -163,7 +163,7 @@ func (s *task) UpdateTask(ctx context.Context, request operations.UpdateTaskRequ
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/tasks"
 
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, "Request", "json")
 	if err != nil {
 		return nil, fmt.Errorf("error serializing request body: %w", err)
 	}

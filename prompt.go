@@ -34,9 +34,9 @@ func newPrompt(defaultClient, securityClient HTTPClient, serverURL, language, sd
 // This endpoint changes a prompt for a task.
 func (s *prompt) ChangePrompt(ctx context.Context, request operations.ChangePromptRequest) (*operations.ChangePromptResponse, error) {
 	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/prompts/{id}", request.PathParams)
+	url := utils.GenerateURL(ctx, baseURL, "/prompts/{id}", request.PathParams, nil)
 
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, "Request", "json")
 	if err != nil {
 		return nil, fmt.Errorf("error serializing request body: %w", err)
 	}
@@ -101,7 +101,7 @@ func (s *prompt) CreatePrompt(ctx context.Context, request operations.CreateProm
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/prompts"
 
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, "Request", "json")
 	if err != nil {
 		return nil, fmt.Errorf("error serializing request body: %w", err)
 	}
@@ -164,7 +164,7 @@ func (s *prompt) CreatePrompt(ctx context.Context, request operations.CreateProm
 // This endpoint deletes a particular prompt from the task.
 func (s *prompt) DeletePrompt(ctx context.Context, request operations.DeletePromptRequest) (*operations.DeletePromptResponse, error) {
 	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/prompts/{id}", request.PathParams)
+	url := utils.GenerateURL(ctx, baseURL, "/prompts/{id}", request.PathParams, nil)
 
 	req, err := http.NewRequestWithContext(ctx, "DELETE", url, nil)
 	if err != nil {
@@ -221,7 +221,7 @@ func (s *prompt) FindPrompts(ctx context.Context, request operations.FindPrompts
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/prompts"
 
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, "Request", "json")
 	if err != nil {
 		return nil, fmt.Errorf("error serializing request body: %w", err)
 	}

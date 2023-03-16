@@ -36,7 +36,7 @@ func (s *dataset) CreateDataset(ctx context.Context, request operations.CreateDa
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/datasets/"
 
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, "Request", "json")
 	if err != nil {
 		return nil, fmt.Errorf("error serializing request body: %w", err)
 	}
@@ -99,7 +99,7 @@ func (s *dataset) CreateDataset(ctx context.Context, request operations.CreateDa
 // This endpoint deletes the dataset with the specified name.
 func (s *dataset) DeleteDataset(ctx context.Context, request operations.DeleteDatasetRequest) (*operations.DeleteDatasetResponse, error) {
 	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/datasets/{name}", request.PathParams)
+	url := utils.GenerateURL(ctx, baseURL, "/datasets/{name}", request.PathParams, nil)
 
 	req, err := http.NewRequestWithContext(ctx, "DELETE", url, nil)
 	if err != nil {
@@ -156,7 +156,7 @@ func (s *dataset) FindDatasets(ctx context.Context, request operations.FindDatas
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/datasets/"
 
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, "Request", "json")
 	if err != nil {
 		return nil, fmt.Errorf("error serializing request body: %w", err)
 	}

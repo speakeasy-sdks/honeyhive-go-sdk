@@ -36,7 +36,7 @@ func (s *generation) GetGeneration(ctx context.Context, request operations.GetGe
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/generations"
 
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, "Request", "json")
 	if err != nil {
 		return nil, fmt.Errorf("error serializing request body: %w", err)
 	}
@@ -101,7 +101,7 @@ func (s *generation) IngestGenerations(ctx context.Context, request operations.I
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/generations/bulk"
 
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, "Request", "json")
 	if err != nil {
 		return nil, fmt.Errorf("error serializing request body: %w", err)
 	}
@@ -166,7 +166,7 @@ func (s *generation) ModelPromptCreateGeneration(ctx context.Context, request op
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/generate"
 
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, "Request", "json")
 	if err != nil {
 		return nil, fmt.Errorf("error serializing request body: %w", err)
 	}
@@ -231,7 +231,7 @@ func (s *generation) TaskCreateGeneration(ctx context.Context, request operation
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/generations"
 
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, "Request", "json")
 	if err != nil {
 		return nil, fmt.Errorf("error serializing request body: %w", err)
 	}
