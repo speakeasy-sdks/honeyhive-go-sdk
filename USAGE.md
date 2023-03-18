@@ -12,7 +12,7 @@ import (
 
 func main() {
     s := honeyhive.New(
-        WithSecurity(        shared.Security{
+        honeyhive.WithSecurity(shared.Security{
             BearerAuth: shared.SchemeBearerAuth{
                 Authorization: "Bearer YOUR_BEARER_TOKEN_HERE",
             },
@@ -21,11 +21,11 @@ func main() {
 
     req := operations.CreateDatasetRequest{
         Request: shared.Dataset{
-            Description: "unde",
-            File: "deserunt",
-            Name: "porro",
-            Purpose: "nulla",
-            Task: "id",
+            Description: "code snippet",
+            File: "????",
+            Name: "my task",
+            Purpose: "new metric",
+            Task: "code snippet",
         },
     }
 
