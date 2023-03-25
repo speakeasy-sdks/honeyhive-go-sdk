@@ -2,6 +2,11 @@
 
 package shared
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 type TaskTypeEnum string
 
 const (
@@ -11,6 +16,28 @@ const (
 	TaskTypeEnumSummarization  TaskTypeEnum = "Summarization"
 	TaskTypeEnumOther          TaskTypeEnum = "Other"
 )
+
+func (e *TaskTypeEnum) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "Text Generation":
+		fallthrough
+	case "Code Generation":
+		fallthrough
+	case "Classification":
+		fallthrough
+	case "Summarization":
+		fallthrough
+	case "Other":
+		*e = TaskTypeEnum(s)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for TaskTypeEnum: %s", s)
+	}
+}
 
 // Task - Task payload
 type Task struct {

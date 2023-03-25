@@ -2,6 +2,11 @@
 
 package shared
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // FindDatasetsResponsePurposeEnum - This is the purpose of the dataset.
 type FindDatasetsResponsePurposeEnum string
 
@@ -10,6 +15,24 @@ const (
 	FindDatasetsResponsePurposeEnumValidation FindDatasetsResponsePurposeEnum = "Validation"
 	FindDatasetsResponsePurposeEnumTest       FindDatasetsResponsePurposeEnum = "Test"
 )
+
+func (e *FindDatasetsResponsePurposeEnum) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "Training":
+		fallthrough
+	case "Validation":
+		fallthrough
+	case "Test":
+		*e = FindDatasetsResponsePurposeEnum(s)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for FindDatasetsResponsePurposeEnum: %s", s)
+	}
+}
 
 // FindDatasetsResponse - Successful response
 type FindDatasetsResponse struct {
