@@ -159,3 +159,11 @@ Based on:
 - Speakeasy CLI 1.18.7 https://github.com/speakeasy-api/speakeasy
 ### Releases
 - [Go v0.11.0] https://github.com/speakeasy-sdks/honeyhive-go-sdk/releases/tag/v0.11.0 - ./
+
+## Version 0.11.1
+### Changes
+Based on:
+- OpenAPI Doc 0.0.0 ./openapi.yaml
+- Speakeasy CLI 1.18.9 https://github.com/speakeasy-api/speakeasy
+### Releases
+- [Go v0.11.1] https://github.com/speakeasy-sdks/honeyhive-go-sdk/releases/tag/v0.11.1 - ./
