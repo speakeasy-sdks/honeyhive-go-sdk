@@ -7,11 +7,6 @@ import (
 	"net/http"
 )
 
-type FindMetricsRequest struct {
-	// Find metrics by task name.
-	Request *shared.FindMetricsInput `request:"mediaType=application/json"`
-}
-
 type FindMetricsResponse struct {
 	// Bad Request error
 	APIResponseBadRequest *shared.APIResponseBadRequest

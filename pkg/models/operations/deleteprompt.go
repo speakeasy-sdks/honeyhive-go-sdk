@@ -7,13 +7,9 @@ import (
 	"net/http"
 )
 
-type DeletePromptPathParams struct {
+type DeletePromptRequest struct {
 	// The id of the prompt
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-}
-
-type DeletePromptRequest struct {
-	PathParams DeletePromptPathParams
 }
 
 type DeletePromptResponse struct {

@@ -7,11 +7,6 @@ import (
 	"net/http"
 )
 
-type CreateTaskRequest struct {
-	// Task payload
-	Request shared.Task `request:"mediaType=application/json"`
-}
-
 type CreateTaskResponse struct {
 	// Bad Request error
 	APIResponseBadRequest *shared.APIResponseBadRequest

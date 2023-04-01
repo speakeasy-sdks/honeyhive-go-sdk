@@ -7,11 +7,6 @@ import (
 	"net/http"
 )
 
-type ModelPromptCreateGenerationRequest struct {
-	// Prompt to add to task
-	Request shared.ModelPromptGenerationInput `request:"mediaType=application/json"`
-}
-
 type ModelPromptCreateGenerationResponse struct {
 	// Bad Request error
 	APIResponseBadRequest *shared.APIResponseBadRequest

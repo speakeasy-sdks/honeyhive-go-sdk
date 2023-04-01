@@ -35,7 +35,7 @@ func newFeedback(defaultClient, securityClient HTTPClient, serverURL, language, 
 
 // CreateFeedback - Create Feedback
 // This endpoint creates feedback for a generation.
-func (s *feedback) CreateFeedback(ctx context.Context, request operations.CreateFeedbackRequest) (*operations.CreateFeedbackResponse, error) {
+func (s *feedback) CreateFeedback(ctx context.Context, request shared.Feedback) (*operations.CreateFeedbackResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/feedback"
 

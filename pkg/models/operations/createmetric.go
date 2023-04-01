@@ -7,11 +7,6 @@ import (
 	"net/http"
 )
 
-type CreateMetricRequest struct {
-	// Metric to add to task
-	Request shared.Metric `request:"mediaType=application/json"`
-}
-
 type CreateMetricResponse struct {
 	// Bad Request error
 	APIResponseBadRequest *shared.APIResponseBadRequest

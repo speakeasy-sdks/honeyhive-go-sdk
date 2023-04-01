@@ -7,11 +7,6 @@ import (
 	"net/http"
 )
 
-type FindDatasetsRequest struct {
-	// Find datasets by task name.
-	Request *shared.FindDatasetsInput `request:"mediaType=application/json"`
-}
-
 type FindDatasetsResponse struct {
 	// Bad Request error
 	APIResponseBadRequest *shared.APIResponseBadRequest

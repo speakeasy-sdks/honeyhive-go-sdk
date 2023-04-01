@@ -7,11 +7,6 @@ import (
 	"net/http"
 )
 
-type CreateFeedbackRequest struct {
-	// Create feedback
-	Request shared.Feedback `request:"mediaType=application/json"`
-}
-
 type CreateFeedbackResponse struct {
 	// Bad Request error
 	APIResponseBadRequest *shared.APIResponseBadRequest

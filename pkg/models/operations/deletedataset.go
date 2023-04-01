@@ -7,13 +7,9 @@ import (
 	"net/http"
 )
 
-type DeleteDatasetPathParams struct {
+type DeleteDatasetRequest struct {
 	// The name of the dataset
 	Name string `pathParam:"style=simple,explode=false,name=name"`
-}
-
-type DeleteDatasetRequest struct {
-	PathParams DeleteDatasetPathParams
 }
 
 type DeleteDatasetResponse struct {

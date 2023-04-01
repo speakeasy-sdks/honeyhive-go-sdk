@@ -35,7 +35,7 @@ func newTask(defaultClient, securityClient HTTPClient, serverURL, language, sdkV
 
 // CreateTask - Create a new task
 // Create a new task
-func (s *task) CreateTask(ctx context.Context, request operations.CreateTaskRequest) (*operations.CreateTaskResponse, error) {
+func (s *task) CreateTask(ctx context.Context, request shared.Task) (*operations.CreateTaskResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/tasks"
 
@@ -100,7 +100,7 @@ func (s *task) CreateTask(ctx context.Context, request operations.CreateTaskRequ
 
 // FindAllTasks - Find all Tasks
 // Find all tasks in certain organisation
-func (s *task) FindAllTasks(ctx context.Context, request operations.FindAllTasksRequest) (*operations.FindAllTasksResponse, error) {
+func (s *task) FindAllTasks(ctx context.Context, request string) (*operations.FindAllTasksResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/tasks"
 
@@ -162,7 +162,7 @@ func (s *task) FindAllTasks(ctx context.Context, request operations.FindAllTasks
 
 // UpdateTask - Update an existing task
 // Update an existing task by code
-func (s *task) UpdateTask(ctx context.Context, request operations.UpdateTaskRequest) (*operations.UpdateTaskResponse, error) {
+func (s *task) UpdateTask(ctx context.Context, request shared.Task) (*operations.UpdateTaskResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/tasks"
 

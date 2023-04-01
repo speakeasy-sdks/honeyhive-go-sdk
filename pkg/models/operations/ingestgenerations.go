@@ -7,11 +7,6 @@ import (
 	"net/http"
 )
 
-type IngestGenerationsRequest struct {
-	// Ingest generations
-	Request shared.Generations `request:"mediaType=application/json"`
-}
-
 type IngestGenerationsResponse struct {
 	// Bad Request error
 	APIResponseBadRequest *shared.APIResponseBadRequest

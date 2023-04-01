@@ -35,7 +35,7 @@ func newGeneration(defaultClient, securityClient HTTPClient, serverURL, language
 
 // GetGeneration - Get Generations
 // This endpoint gets the generations for a given task, prompt and model.
-func (s *generation) GetGeneration(ctx context.Context, request operations.GetGenerationRequest) (*operations.GetGenerationResponse, error) {
+func (s *generation) GetGeneration(ctx context.Context, request shared.GenerationInput) (*operations.GetGenerationResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/generations"
 
@@ -100,7 +100,7 @@ func (s *generation) GetGeneration(ctx context.Context, request operations.GetGe
 
 // IngestGenerations - Create Generation for Task
 // This endpoint ingests generations in bulk.
-func (s *generation) IngestGenerations(ctx context.Context, request operations.IngestGenerationsRequest) (*operations.IngestGenerationsResponse, error) {
+func (s *generation) IngestGenerations(ctx context.Context, request shared.Generations) (*operations.IngestGenerationsResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/generations/bulk"
 
@@ -165,7 +165,7 @@ func (s *generation) IngestGenerations(ctx context.Context, request operations.I
 
 // ModelPromptCreateGeneration - Create Generation for Model and Prompt
 // This endpoint generates text using a given model and prompt.
-func (s *generation) ModelPromptCreateGeneration(ctx context.Context, request operations.ModelPromptCreateGenerationRequest) (*operations.ModelPromptCreateGenerationResponse, error) {
+func (s *generation) ModelPromptCreateGeneration(ctx context.Context, request shared.ModelPromptGenerationInput) (*operations.ModelPromptCreateGenerationResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/generate"
 
@@ -230,7 +230,7 @@ func (s *generation) ModelPromptCreateGeneration(ctx context.Context, request op
 
 // TaskCreateGeneration - Create Generation for Task
 // This endpoint produces a new generation for a given task.
-func (s *generation) TaskCreateGeneration(ctx context.Context, request operations.TaskCreateGenerationRequest) (*operations.TaskCreateGenerationResponse, error) {
+func (s *generation) TaskCreateGeneration(ctx context.Context, request shared.TaskGenerationInput) (*operations.TaskCreateGenerationResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/generations"
 

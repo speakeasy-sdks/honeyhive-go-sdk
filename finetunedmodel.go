@@ -35,7 +35,7 @@ func newFineTunedModel(defaultClient, securityClient HTTPClient, serverURL, lang
 
 // FindFineTunedModels - This endpoint gets the fine-tuned models being managed by the user.
 // This endpoint gets the fine-tuned models associated with a particular model or task.
-func (s *fineTunedModel) FindFineTunedModels(ctx context.Context, request operations.FindFineTunedModelsRequest) (*operations.FindFineTunedModelsResponse, error) {
+func (s *fineTunedModel) FindFineTunedModels(ctx context.Context, request shared.FineTunedModelsInput) (*operations.FindFineTunedModelsResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/fine_tuned_models"
 

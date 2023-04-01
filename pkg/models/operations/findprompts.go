@@ -7,11 +7,6 @@ import (
 	"net/http"
 )
 
-type FindPromptsRequest struct {
-	// Find prompts by task or name
-	Request *shared.FindPromptsInput `request:"mediaType=application/json"`
-}
-
 type FindPromptsResponse struct {
 	// Bad Request error
 	APIResponseBadRequest *shared.APIResponseBadRequest

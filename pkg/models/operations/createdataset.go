@@ -7,11 +7,6 @@ import (
 	"net/http"
 )
 
-type CreateDatasetRequest struct {
-	// New Dataset to create
-	Request shared.Dataset `request:"mediaType=application/json"`
-}
-
 type CreateDatasetResponse struct {
 	// Bad Request error
 	APIResponseBadRequest *shared.APIResponseBadRequest

@@ -7,11 +7,6 @@ import (
 	"net/http"
 )
 
-type CreatePromptRequest struct {
-	// Prompt to add to task
-	Request shared.CreatePromptInput `request:"mediaType=application/json"`
-}
-
 type CreatePromptResponse struct {
 	// Bad Request error
 	APIResponseBadRequest *shared.APIResponseBadRequest

@@ -7,11 +7,6 @@ import (
 	"net/http"
 )
 
-type FindAllTasksRequest struct {
-	// Fetch a particular task by name
-	Request *string `request:"mediaType=application/json"`
-}
-
 type FindAllTasksResponse struct {
 	// Bad Request error
 	APIResponseBadRequest *shared.APIResponseBadRequest

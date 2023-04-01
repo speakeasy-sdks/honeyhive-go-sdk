@@ -7,11 +7,6 @@ import (
 	"net/http"
 )
 
-type FindFineTunedModelsRequest struct {
-	// Find fine-tuned models by task or name
-	Request *shared.FineTunedModelsInput `request:"mediaType=application/json"`
-}
-
 type FindFineTunedModelsResponse struct {
 	// Bad Request error
 	APIResponseBadRequest *shared.APIResponseBadRequest

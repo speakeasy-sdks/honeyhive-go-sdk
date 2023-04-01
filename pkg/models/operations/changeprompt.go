@@ -7,15 +7,11 @@ import (
 	"net/http"
 )
 
-type ChangePromptPathParams struct {
+type ChangePromptRequest struct {
+	// Prompt to add to task
+	Prompt shared.Prompt `request:"mediaType=application/json"`
 	// The id of the prompt
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-}
-
-type ChangePromptRequest struct {
-	PathParams ChangePromptPathParams
-	// Prompt to add to task
-	Request shared.Prompt `request:"mediaType=application/json"`
 }
 
 type ChangePromptResponse struct {
