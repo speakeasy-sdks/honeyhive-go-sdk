@@ -17,6 +17,7 @@ func main() {
         }),
     )
 
+    ctx := context.Background()    
     req := shared.Dataset{
         Description: "code snippet",
         File: "????",
@@ -25,7 +26,6 @@ func main() {
         Task: "code snippet",
     }
 
-    ctx := context.Background()
     res, err := s.Dataset.CreateDataset(ctx, req)
     if err != nil {
         log.Fatal(err)
