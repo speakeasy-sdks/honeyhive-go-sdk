@@ -102,7 +102,10 @@ func (s *dataset) CreateDataset(ctx context.Context, request shared.Dataset) (*o
 // This endpoint deletes the dataset with the specified name.
 func (s *dataset) DeleteDataset(ctx context.Context, request operations.DeleteDatasetRequest) (*operations.DeleteDatasetResponse, error) {
 	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/datasets/{name}", request, nil)
+	url, err := utils.GenerateURL(ctx, baseURL, "/datasets/{name}", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
 
 	req, err := http.NewRequestWithContext(ctx, "DELETE", url, nil)
 	if err != nil {

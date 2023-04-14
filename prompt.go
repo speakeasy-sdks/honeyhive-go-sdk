@@ -37,7 +37,10 @@ func newPrompt(defaultClient, securityClient HTTPClient, serverURL, language, sd
 // This endpoint changes a prompt for a task.
 func (s *prompt) ChangePrompt(ctx context.Context, request operations.ChangePromptRequest) (*operations.ChangePromptResponse, error) {
 	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/prompts/{id}", request, nil)
+	url, err := utils.GenerateURL(ctx, baseURL, "/prompts/{id}", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
 
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, "Prompt", "json")
 	if err != nil {
@@ -167,7 +170,10 @@ func (s *prompt) CreatePrompt(ctx context.Context, request shared.CreatePromptIn
 // This endpoint deletes a particular prompt from the task.
 func (s *prompt) DeletePrompt(ctx context.Context, request operations.DeletePromptRequest) (*operations.DeletePromptResponse, error) {
 	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/prompts/{id}", request, nil)
+	url, err := utils.GenerateURL(ctx, baseURL, "/prompts/{id}", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
 
 	req, err := http.NewRequestWithContext(ctx, "DELETE", url, nil)
 	if err != nil {
