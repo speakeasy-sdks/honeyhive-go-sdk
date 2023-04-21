@@ -33,25 +33,21 @@ import (
 )
 
 func main() {
-    s := honeyhive.New(honeyhive.WithSecurity(
-        shared.Security{
-            BearerAuth: shared.SchemeBearerAuth{
-                Authorization: "Bearer YOUR_BEARER_TOKEN_HERE",
-            },
-        },
-    ))
-    
-    req := operations.CreateDatasetRequest{
-        Request: shared.Dataset{
-            Description: "unde",
-            File: "deserunt",
-            Name: "porro",
-            Purpose: "nulla",
-            Task: "id",
-        },
+    s := honeyhive.New(
+        honeyhive.WithSecurity(shared.Security{
+            BearerAuth: "Bearer YOUR_BEARER_TOKEN_HERE",
+        }),
+    )
+
+    ctx := context.Background()    
+    req := shared.Dataset{
+        Description: "code snippet",
+        File: "????",
+        Name: "my task",
+        Purpose: "new metric",
+        Task: "code snippet",
     }
 
-    ctx := context.Background()
     res, err := s.Dataset.CreateDataset(ctx, req)
     if err != nil {
         log.Fatal(err)
@@ -65,7 +61,7 @@ func main() {
 <!-- End SDK Example Usage -->
 
 <!-- Start SDK Available Operations -->
-## SDK Available Operations
+## Available Resources and Operations
 
 
 ### Dataset
