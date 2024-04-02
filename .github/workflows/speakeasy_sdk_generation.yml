@@ -1,20 +1,19 @@
 name: Generate
-
-on:
-  workflow_dispatch: {} # Allows manual triggering of the workflow to generate SDK
-  schedule:
-    - cron: 0 0 * * * # Runs every day at midnight
-
+"on":
+  workflow_dispatch:
+    inputs:
+      force:
+        description: ""
+        type: ""
+        default: false
 jobs:
   generate:
     uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-generation.yaml@v10
     with:
-      speakeasy_version: latest
-      openapi_doc_location: ./openapi.yaml
-      languages: |-
-        - go: ./
-       
+      languages: '- go: ./'
       mode: pr
+      openapi_doc_location: ./openapi.yaml
+      speakeasy_version: latest
     secrets:
       github_access_token: ${{ secrets.GITHUB_TOKEN }}
       speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
