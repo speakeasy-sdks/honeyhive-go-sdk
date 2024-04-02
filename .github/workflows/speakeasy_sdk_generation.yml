@@ -10,7 +10,8 @@ jobs:
   generate:
     uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-generation.yaml@v10
     with:
-      languages: '- go: ./'
+      languages: |
+        - go: ./
       mode: pr
       openapi_doc_location: ./openapi.yaml
       speakeasy_version: latest
